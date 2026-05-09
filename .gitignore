@@ -1,0 +1,9 @@
+dataset/
+Documents/
+images/
+mnist_train/
+Models/
+runs/
+Software/
+unet/
+.ipynb_checkpoints/
