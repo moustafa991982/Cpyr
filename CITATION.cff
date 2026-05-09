@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the SAE paper below."
+title: "CPYR — Deep Anomaly Detection for In-Vehicle Networks"
+abstract: >-
+  Reference implementation accompanying the SAE WCX 2021 paper "Putting Safety
+  of Intended Functionality SOTIF into Practice." A semi-supervised deep
+  learning framework for cyber-physical anomaly detection on automotive
+  in-vehicle networks, addressing both fuzz-attack detection on Ethernet and
+  SOTIF-relevant contextual anomalies on Lane Keep Assist (LKA).
+type: software
+authors:
+  - family-names: "El Bahaey"
+    given-names: "Moustafa"
+    orcid: ""
+    affiliation: "EVRaid / at-instr.com"
+url: "https://github.com/moustafa991982/Cpyr"
+repository-code: "https://github.com/moustafa991982/Cpyr"
+license: "See LICENSE file"
+preferred-citation:
+  type: conference-paper
+  title: "Putting Safety of Intended Functionality SOTIF into Practice"
+  authors:
+    - family-names: "Abdulazim"
+      given-names: "A."
+    - family-names: "Elbahaey"
+      given-names: "M."
+    - family-names: "Mohamed"
+      given-names: "A."
+  year: 2021
+  month: 4
+  conference:
+    name: "SAE WCX Digital Summit"
+    city: "Live Online"
+    country: "US"
+  publisher:
+    name: "SAE International"
+  doi: "10.4271/2021-01-0196"
+  url: "https://www.sae.org/papers/putting-safety-intended-functionality-sotif-practice-2021-01-0196/"
+  identifiers:
+    - type: other
+      value: "SAE Technical Paper 2021-01-0196"
+references:
+  - type: video
+    title: "AI Use Cases in Automotive Cybersecurity & SOTIF (ASRG presentation)"
+    authors:
+      - family-names: "El Bahaey"
+        given-names: "Moustafa"
+    url: "https://www.youtube.com/watch?v=z3uAQIN0nYw"

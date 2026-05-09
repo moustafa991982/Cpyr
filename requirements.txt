@@ -1,0 +1,23 @@
+# Core
+torch>=1.8.0
+torchvision>=0.9.0
+numpy>=1.19
+pandas>=1.2
+
+# Notebooks & visualisation
+jupyter
+matplotlib>=3.3
+seaborn
+
+# Data handling
+scikit-learn>=0.24
+scipy>=1.6
+
+# Image / similarity metrics (SSIM)
+scikit-image>=0.18
+
+# Optional: progress bars
+tqdm
+
+# Optional: utility
+einops
