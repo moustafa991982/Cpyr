@@ -112,28 +112,69 @@ Step 4: Evaluate hazardous unknown scenarios (Validation)
 
 **The safety-critical scenario demonstrated in the paper:**
 
-The scenario involves a Lane Keep Assist (LKA) system and a Right Lane Distance (RLD) sensor on a vehicle using CAN protocol.
+The scenario involves a Lane Keep Assist (LKA) system and a Right Lane Distance (RLD) sensor on a vehicle using CAN protocol. The SOTIF analysis is modelled as two time sequences, each decomposed into the standard SOTIF risk chain: Known Triggering Event → System Behavior → Hazard & Operational Situation → Hazardous Event → Reaction → Harm. Risk is evaluated along three dimensions: probability of exposure, controllability, and severity.
 
 ```
-Time sequence 1 (Scene setup):
-  ┌─────────────────────────────────────────────────────────────────────┐
-  │ LKA: OFF │ Driver switches lanes │ Car from behind accelerates      │
-  │          │ Driver turns LKA ON   │ Driver releases wheel (misuse)   │
-  │          │ RLD enters hesitation │                                  │
-  └─────────────────────────────────────────────────────────────────────┘
+╔══════════════════════════════════════════════════════ TIME SEQUENCE 1 ══════════════════════════════════════════════╗
+║                                                                                                                     ║
+║  ┌─────────────────────┐    ┌────────────────────────┐    ┌────────────────────┐  ┌────────────────────────────┐   ║
+║  │  Known Triggering   │    │    LKA System          │    │   Hazardous Event  │  │         Harm               │   ║
+║  │  Events             │    │                        │    │                    │  │                            │   ║
+║  │ The driver changes  │──► │  ┌──────────────────┐  │──► │ Combination of     │  │  LKA takes control of      │   ║
+║  │ lane while LKA is   │    │  │  LKA Is OFF      │  │  & │ hazard and         │──►  car in hesitation phase  │   ║
+║  │ OFF and starts LKA  │    │  │  No reaction     │  │    │ operational        │  │                            │   ║
+║  │ when LKA system is  │    │  └──────────────────┘  │    │ situation          │  └────────────────────────────┘   ║
+║  │ in Hesitation phase │    │                        │    └────────────────────┘             │                    ║
+║  └─────────────────────┘    │  Hazard: None          │              ▲                   Severity                  ║
+║            │                └────────────────────────┘              │                                             ║
+║            ▼                              &                 ┌───────┴──────────────────────────────────────┐      ║
+║   Occurrence over           ┌────────────────────────┐      │  Reaction of the Involved Person             │      ║
+║   operating lifetime        │  Operational Situation  │──►  │                                              │      ║
+║                             │                        │      │  The driver is in a hurry.                   │      ║
+║                             │  On a high-speed road, │      │  The driver took his hands off the steering  │      ║
+║                             │  a car from behind is  │      │  wheel before the car fully enters the new   │      ║
+║                             │  getting closer        │      │  lane.                                       │      ║
+║                             └────────────────────────┘      └──────────────────────────────────────────────┘      ║
+║                                        │                                         │                                ║
+║                               Probability of exposure                       Controllability                       ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-Time sequence 2 (Hazardous event):
-  ┌─────────────────────────────────────────────────────────────────────┐
-  │ LKA: ON  │ LKA cannot determine correct lane (hesitation phase)    │
-  │          │ LKA steers hard back to old lane                        │
-  │          │ Collision with approaching vehicle                      │
-  │          │ Neither driver can react — shock                        │
-  └─────────────────────────────────────────────────────────────────────┘
+╔══════════════════════════════════════════════════════ TIME SEQUENCE 2 ══════════════════════════════════════════════╗
+║                                                                                                                     ║
+║  ┌─────────────────────┐    ┌────────────────────────┐    ┌────────────────────┐  ┌────────────────────────────┐   ║
+║  │  Known Triggering   │    │    LKA System          │    │   Hazardous Event  │  │         Harm               │   ║
+║  │  Events             │    │                        │    │                    │  │                            │   ║
+║  │ LKA takes control   │    │  ┌──────────────────┐  │    │ Combination of     │  │  Collision with the car    │   ║
+║  │ of car in           │──► │  │ Potential        │  │──► │ hazard and         │──►  from behind              │   ║
+║  │ hesitation phase    │    │  │ hazardous        │  │  & │ operational        │  │                            │   ║
+║  │                     │    │  │ behavior:        │  │    │ situation          │  └────────────────────────────┘   ║
+║  │                     │    │  │ LKA was falsely  │  │    └────────────────────┘             │                    ║
+║  │                     │    │  │ convinced the    │  │              ▲                   Severity                  ║
+║  └─────────────────────┘    │  │ car is in the    │  │              │                                             ║
+║            │                │  │ old lane         │  │     ┌────────┴─────────────────────────────────────┐      ║
+║            ▼                │  └──────────────────┘  │     │  Reaction of the Involved Person             │      ║
+║   Occurrence over           │                        │──►  │                                              │      ║
+║   operating lifetime        │  Hazard: Tough turn to │     │  The driver did not take control of the      │      ║
+║                             │  return car to old lane│     │  steering wheel                              │      ║
+║                             └────────────────────────┘     └──────────────────────────────────────────────┘      ║
+║                                        &                                         │                                ║
+║                             ┌────────────────────────┐                      Controllability                       ║
+║                             │  Operational Situation  │                                                            ║
+║                             │                        │                                                            ║
+║                             │  On a high-speed road, │                                                            ║
+║                             │  a car from behind is  │                                                            ║
+║                             │  getting closer        │                                                            ║
+║                             └────────────────────────┘                                                            ║
+║                                        │                                                                          ║
+║                               Probability of exposure                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
 Trigger event (SOTIF definition):
-  LKA state transition to ON while RLD is in switching/steering phase
+  LKA state transition to ON while RLD is in the switching/steering (hesitation) phase
   ↑ This is the single contextual anomaly CPYR detects at zero-batch lag
 ```
+
+**Note on the two time sequences**: Time Sequence 1 ends with the harm "LKA takes control of car in hesitation phase." This harm *becomes* the Known Triggering Event for Time Sequence 2, which chains into the collision outcome. SOTIF models the accident as a two-scene causal chain, not a single event. This chaining structure is what requires a contextual (sequence-aware) model — a point-in-time classifier cannot see the chain forming.
 
 **Cyber-security overlap**: The same scenario can be triggered by a cyber-attack — an attacker with control over the Steering Column ECU sends a legitimate-looking LKA frame at a critical moment. CPYR detects both origins through the same contextual mechanism, because the trigger event signature is identical regardless of whether the cause is user misuse or malicious injection.
 
@@ -546,14 +587,17 @@ Einstein-sum provides a wider and more stable margin at small batch sizes — im
 
 ### 7.3 LKA Contextual Anomaly — Trigger Lag
 
-Anomaly injected at batch 24.
+Anomaly injected at batch 24. Both contextual models fire at the exact anomaly batch (0-batch lag). The baseline, lacking history context, cannot reliably separate safe from unsafe transitions at all.
 
-| Model | BCE trigger batch | BCE lag | SSIM trigger batch | SSIM lag |
-|---|---|---|---|---|
-| **LKA Predictor** | **24** | **0 batches** | **24** | **0 batches** |
-| VIS Predictor | 416–430 | 393 batches | 416–426 | 393 batches |
+| Model | BCE trigger batch | BCE lag | SSIM trigger batch | SSIM lag | Notes |
+|---|---|---|---|---|---|
+| Baseline | — | — | — | — | Overlapping distributions; no clean threshold possible |
+| **LKA Predictor** | **24** | **0 batches** | **24** | **0 batches** | Instantaneous; sharp spike at transition |
+| **Enhanced LKA Predictor** | **24** | **0 batches** | **24** | **0 batches** | Same trigger speed; reconstruction auxiliary loss improves Gaussian noise robustness |
 
-The LKA predictor achieves **instantaneous** detection at the exact anomaly batch. The VIS predictor provides a sustained 393-batch confirmation window. Together, they implement a surgical early-warning + confirmation alarm strategy.
+Both the LKA Predictor and Enhanced LKA Predictor achieve **instantaneous** detection. The key difference between the two is not trigger speed but **robustness profile**: the Enhanced model's history reconstruction objective makes it more tolerant of gradual sensor drift (Gaussian noise family) while slightly reducing sensitivity to sharp positive-bias distortion. The choice between them is a deployment trade-off, not a speed trade-off.
+
+**The contextual engine has three models total** (Baseline + LKA Predictor + Enhanced LKA Predictor). There is no "VIS Predictor" in the CPYR codebase — that term does not appear in SAE 2021-01-0196. The sustained-confirmation concept at the MISV level is provided by Traffic Vision's dual-model architecture (ground stream + predict stream), which is a physically separate system.
 
 ---
 
@@ -882,7 +926,7 @@ The ground stream detects anomalies that are already unfolding. The predict stre
 - If both fire: high-confidence alert (event confirmed from two independent temporal windows)
 - If ground fires but predict does not: event already happening (late detection)
 
-This dual-stream architecture is structurally identical to CPYR's dual-predictor (instantaneous LKA + sustained VIS). Both systems independently converged on the same design principle: **pair a fast surgical detector with a confirmatory window**.
+This dual-stream architecture (ground stream + predict stream) is structurally parallel to how CPYR's contextual engine uses two distinct objectives — the LKA Predictor (context-state mismatch detection) and the Enhanced LKA Predictor (adding history reconstruction verification). Both systems independently converged on the same design principle: **separate instantaneous anomaly detection from sustained confirmation**, whether by dual temporal windows (Traffic Vision) or dual training objectives (CPYR).
 
 ### 6.2 Anomaly Score Computation
 
@@ -1428,7 +1472,7 @@ NVIDIA Metropolis currently serves over 1,000 cities and 100+ partners in transp
 | Only published SOTIF implementation | SAE WCX 2021, DOI 10.4271/2021-01-0196 — peer reviewed |
 | Zero annotation required | Semi-supervised training proven on real vehicle data (both systems) |
 | Already on NVIDIA hardware | Traffic Vision: developed on Tesla T4. CPYR: 1.2 KB fits L2 cache on any Jetson. |
-| Proven dual-stream architecture | CPYR: LKA+VIS predictors. Traffic Vision: ground+predict models. Same principle, independent development. |
+| Proven dual-objective / dual-stream architecture | CPYR: LKA Predictor + Enhanced LKA Predictor (dual training objectives). Traffic Vision: ground + predict streams (dual temporal windows). Same design principle, independent development. |
 | MISV product-probability Zone 2 reduction | Formal SOTIF argument ready for ISO 21448 audit |
 | Continuous anomaly score (not binary) | Graduated alert levels; proportional ADAS response; auditable evidence log |
 

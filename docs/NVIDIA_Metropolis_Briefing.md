@@ -39,14 +39,21 @@ CPYR is a semi-supervised deep learning framework that monitors the automotive C
 
 **The demonstrated scenario** (from the SAE paper): A driver activates Lane Keep Assist during a lane switch (a legal action), then releases the steering wheel (user misuse), while the lane sensor is in hesitation phase (performance limitation). These three individually normal events combine into a contextual SOTIF hazard that causes a collision. CPYR detects the anomaly at the exact batch where the context-state combination becomes unsafe — **zero-batch lag**.
 
-**Architecture**: Dual-predictor contextual engine trained on normal network traffic only:
+**Architecture**: Three-model contextual engine trained on normal network traffic only (SAE paper models):
 
 ```
-VIS Predictor:  [scene(t-1), history, LKA(t)]    → predicted scene(t)    [393-batch confirmation window]
-LKA Predictor:  [scene(t-1), history, scene(t), LKA(t-1)] → predicted LKA(t) [0-batch instantaneous trigger]
+Baseline:              [RLD(t), LKA(t-1)]                          → LKA'(t)  [no history — non-contextual comparison]
+LKA Predictor:         [RLD(t), history_RLD, LKA(t-1)]             → LKA'(t)  [0-batch instantaneous trigger]
+Enhanced LKA Predictor:[RLD(t), history_RLD, LKA(t-1)] + Reconstructor(history_RLD → RLD[t-N:t])
+                                                                    → LKA'(t)  [0-batch; improved Gaussian noise robustness]
 ```
 
-The LKA predictor fires the instant context contradicts state. The VIS predictor provides a sustained alarm window for human-operator confirmation. The dual-stream principle — one stream fires early, one confirms — is the same principle underlying the MISV architecture.
+Where:
+- **RLD** = Right Lane Distance (lane sensor value on CAN bus)
+- **history_RLD** = compressed rolling representation of all past RLD frames (convolutional history block)
+- **LKA(t-1)** = previous LKA state from memory unit
+
+The LKA Predictor fires the instant the context-state combination becomes anomalous (LKA transition during hesitation phase). The Enhanced LKA Predictor adds a reconstruction auxiliary loss that forces the history block to genuinely encode temporal content, improving robustness at the cost of slight positive-bias sensitivity. Both are instantaneous. The sustained-confirmation role at the system level is filled by Traffic Vision (Channel B in MISV).
 
 **Results (SAE 2021-01-0196)**:
 - All 7 verification test cases: F1 = 1.00 (LKA Predictor and Enhanced LKA Predictor)
@@ -93,7 +100,7 @@ Output: (B, 3M, 320, 480)   — M predicted future frames
 - **"Predict" model**: less input, farther horizon → anticipates what is about to happen
 - Both streams run in parallel; disagreement between them enriches the hazard signal
 
-This directly parallels CPYR's dual-predictor (instantaneous LKA + sustained VIS), confirming the architectural principle across both systems.
+This dual-stream pattern (ground = confirmatory, predict = anticipatory) parallels the dual-objective design of CPYR's contextual engine (LKA Predictor = context-state mismatch detection, Enhanced LKA Predictor = history reconstruction verification). Both systems independently separate instantaneous anomaly detection from sustained confirmation.
 
 **Demonstrated detection events** (from the demo video annotations):
 
