@@ -37,7 +37,7 @@ MISV is the direct answer to that conclusion.
 
 **Demos:**
 - [CPYR Anomaly Detection Demo](https://www.youtube.com/watch?v=Yn-BaMF7mqE) — live model inference on CAN/Ethernet data, showing contextual anomaly scoring in real time
-- CPYR on Azure Cloud — continuous monitoring deployment on Microsoft Azure, demonstrating the cloud-side retraining and alert pipeline
+- [CPYR on Azure Cloud] (https://www.youtube.com/watch?v=oFyrh-I6Wfk)— continuous monitoring deployment on Microsoft Azure, demonstrating the cloud-side retraining and alert pipeline
 
 CPYR is a semi-supervised deep learning framework that monitors the automotive CAN/Ethernet network for **contextual anomalies** — situations that are only dangerous given their operational context, which is precisely the SOTIF trigger-event class.
 
