@@ -117,6 +117,8 @@ Output: (B, 3M, 320, 480)   — M predicted future frames
 This dual-stream pattern (ground = confirmatory, predict = anticipatory) parallels the dual-objective design of CPYR's contextual engine (LKA Predictor = context-state mismatch detection, Enhanced LKA Predictor = history reconstruction verification). Both systems independently separate instantaneous anomaly detection from sustained confirmation.
 
 **Demonstrated detection events** (from the demo video annotations):
+<img width="1317" height="716" alt="image" src="https://github.com/user-attachments/assets/cee49120-323c-479f-ba8b-5664c72fbaff" />
+
 
 | Time | Predicted (250 ms ahead) | Confirmed |
 |---|---|---|
@@ -144,6 +146,8 @@ The last event is particularly important for SOTIF: the system raises a soft ale
 System C is not a third independent detector — it is the **fusion architecture** that makes Systems A and B a safety argument rather than two separate tools. It implements MISV by running CPYR and Traffic Vision concurrently, fusing their scores through a weighted voting layer, and producing a single alert level with auditable per-channel provenance.
 
 **Why fusion changes the safety argument**:
+
+<img width="1336" height="725" alt="image" src="https://github.com/user-attachments/assets/a8b78d9e-ca8d-4e89-9334-382b38aad4f0" />
 
 ```
 Single channel:  P(miss) ≤ p_A         ← bounded by the weaker channel alone
@@ -247,6 +251,7 @@ NVIDIA Metropolis / DeepStream Pipeline
                                     ↓
                          Dashboard / V2X broadcast / eCall trigger
 ```
+<img width="1179" height="544" alt="image" src="https://github.com/user-attachments/assets/c9f871e3-11f2-4f07-95b9-ff8f4d765adb" />
 
 ### 5.1 TensorRT / DeepStream Integration
 
