@@ -1,4 +1,4 @@
-# CPYR + Traffic Vision — NVIDIA Metropolis Briefing
+# CPYR + Traffic Vision — Briefing
 ### Multiple Independent Source Verification for Traffic Accident Detection & Dangerous Situations Under ISO 21448 SOTIF
 **Meeting: NVIDIA Metropolis | May 29, 2026**
 **Presenter: Moustafa El Bahaey — Chief Engineer, EVRaid / AT Instruments**
@@ -7,7 +7,7 @@
 
 ## 1. The Core Proposition in One Sentence
 
-We have built and demonstrated **three independently operating systems** — one listening to the vehicle's internal network, one watching the road through a camera, and one combining both under a single fusion layer — that together implement **Multiple Independent Source Verification (MISV)** for dangerous situations, exactly as required by ISO 21448 SOTIF, and all three are ready to run on the NVIDIA Metropolis stack today.
+We have built and demonstrated **three independently operating systems** — one listening to the vehicle's internal network or V2X communication, one watching the road through a camera, and one combining both under a single fusion layer — that together implement **Multiple Independent Source Verification (MISV)** for dangerous situations, exactly as required by ISO 21448 SOTIF, and all three are ready to run on the NVIDIA Metropolis stack today.
 
 ---
 
@@ -15,7 +15,7 @@ We have built and demonstrated **three independently operating systems** — one
 
 ISO 21448:2022 SOTIF defines the hardest safety problem in autonomous driving: a system that is **functioning correctly** yet produces hazardous outcomes because its design assumptions do not cover the operational context. It calls this Zone 2 — *unknown triggering conditions producing hazardous behaviour* — and requires evidence that Zone 2 has been reduced to an acceptable residual level.
 
-Any single detector has a Zone 2 of its own. A camera-based system cannot see a CAN bus anomaly. A network-level monitor cannot see a vehicle cutting across a lane. Each system individually improves safety; neither individually proves it.
+Any single detector has a Zone 2 of its own. A camera-based system cannot see an internal CAN bus or V2X anomalies. A network-level monitor cannot see a vehicle cutting across a lane. Each system individually improves safety; neither individually proves it.
 
 **MISV resolves this**: when two or more independent sources, with non-overlapping failure modes, simultaneously detect an anomaly, the probability that both are in Zone 2 at the same moment is the product of their individual Zone 2 probabilities — orders of magnitude smaller than either alone. This is the safety argument SOTIF asks for, and it is the architecture we have built.
 
@@ -146,19 +146,19 @@ MISV (A + B + V2X): P(miss) ≤ p_A × p_B × p_C ← three-channel product
 
 With conservative per-channel Zone 2 miss rates of p_A = 0.12, p_B = 0.20, p_C = 0.05, the MISV system achieves P(miss) ≤ 0.0012 — a 100× improvement over the best single channel, and a **formal, auditable SOTIF Zone 2 residual-risk claim**.
 
-**Fusion layer**:
+** Fusion layer**:
 
 ```
 Score A (CPYR — network)    ─┐
 Score B (Traffic Vision — vision) ─┼─► Weighted vote → Alert level 0–3
-Score C (V2X — kinematic)   ─┘         (0 = nominal, 3 = emergency)
+Proposed Score C (V2X — kinematic)   ─┘         (0 = nominal, 3 = emergency)
 
 Alert level 1+: logged as potential Zone 2 triggering condition
 Alert level 2+: ADAS advisory (speed reduction, driver attention request)
 Alert level 3:  eCall / emergency brake pre-arm
 ```
 
-**The combined demo** (https://www.youtube.com/watch?v=LKH6Nsu54wc) shows the V2X-connected rear vehicle scenario from the SAE paper played out with both sensing modalities active: CPYR detects the LKA context mismatch at the network level (zero-batch lag) while Traffic Vision detects the converging trajectory at the camera level (~250 ms pre-event). The fusion layer requires both channels to agree before escalating to level 3, eliminating single-channel false positives.
+**The combined demo** (https://www.youtube.com/watch?v=LKH6Nsu54wc) shows the connected vehicle scenario from the SAE paper played out with both sensing modalities active: CPYR detects the LKA context mismatch at the network level (zero-batch lag) while Traffic Vision detects the converging trajectory at the camera level (~250 ms pre-event). The fusion layer requires both channels to agree before escalating to level 3, eliminating single-channel false positives.
 
 | Capability | System A (CPYR) | System B (Traffic Vision) | System C (Fusion) |
 |---|---|---|---|
@@ -178,7 +178,7 @@ The combined system implements MISV across three independent data channels, each
 ┌────────────────────────────────────────────────────────────────────────┐
 │                    MISV FUSION LAYER                                   │
 │                                                                        │
-│  Channel 1: CPYR          Channel 2: Traffic Vision   Channel 3: V2X  │
+│  Channel 1: CPYR          Channel 2: Traffic Vision   Channel 3 (Proposed): V2X  │
 │  ─────────────────        ─────────────────────────   ──────────────  │
 │  In-vehicle network       Forward camera (video)      Cooperative     │
 │  CAN/Ethernet signals     Future-frame prediction     vehicle comms   │
