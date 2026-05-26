@@ -86,6 +86,10 @@ The LKA Predictor fires the instant the context-state combination becomes anomal
 
 Traffic Vision is an unsupervised convolutional autoencoder trained only on normal dashcam footage. At inference it forecasts the next frames of video. When reality diverges from the forecast, the divergence is interpreted as a hazard signal — **approximately 250 ms before the event fully unfolds**.
 
+**Rational:**
+Collecting and labeling enough negative examples to train a supervised detector for every kind of dangerous maneuver is, in practice, impossible. Hazardous events are by definition rare, varied, and hard to stage safely. What we do have, in abundance, is footage of ordinary, uneventful driving.
+This project asks a different question: can we learn a model of "what normal traffic looks like a quarter-second from now" using only ordinary footage, and then treat any region of the scene that violates the model's expectation as a candidate hazard? If so, we get a detector that requires no hazard labels at all, that generalizes across categories of dangerous behavior, and that naturally provides a continuous uncertainty score instead of a binary class decision.
+
 **The key insight** (from the technical documentation, Section 4):
 
 > *"Reconstruction error mainly flags appearance anomalies... Future-frame prediction, by contrast, forces the network to internalize how things ought to move. A car that is currently in the right lane should, a quarter-second from now, be slightly further along the right lane. If instead it suddenly swings across the host vehicle's lane, every pixel of the prediction near that car will be wrong, even though each pixel by itself looks like a perfectly normal pixel of a car."*
