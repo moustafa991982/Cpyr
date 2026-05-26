@@ -44,6 +44,9 @@ CPYR is a semi-supervised deep learning framework that monitors the automotive C
 **The demonstrated scenario** (from the SAE paper): A driver activates Lane Keep Assist during a lane switch (a legal action), then releases the steering wheel (user misuse), while the lane sensor is in hesitation phase (performance limitation). These three individually normal events combine into a contextual SOTIF hazard that causes a collision. CPYR detects the anomaly at the exact batch where the context-state combination becomes unsafe — **zero-batch lag**.
 
 **Architecture**: Three-model contextual engine trained on normal network traffic only (SAE paper models):
+<img width="2340" height="1083" alt="image" src="https://github.com/user-attachments/assets/e295a0a1-31ff-487c-a01a-300b12a3f5fe" />
+
+Figure :Enhanced LKA Predictor architecture, LKA predictor architecture, the model filters RLD and LKA value from data flow,the memory unit operates as a delay unit, the history unit creates a condensed representation of RLD values. The history, RLD value and previous value of LKA are fed to the predictor unit to predict the next LKA state. The history representation is fed into there constructor to reconstruct the RLD last (N) RLD values.
 
 ```
 Baseline:              [RLD(t), LKA(t-1)]                          → LKA'(t)  [no history — non-contextual comparison]
