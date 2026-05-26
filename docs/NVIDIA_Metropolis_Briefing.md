@@ -9,7 +9,9 @@
 
 We provide independent safety verification for physical AI decisions under SOTIF.
 We have built and demonstrated **three independently operating systems** — one listening to the vehicle's internal network or V2X communication, one watching the road through a camera, and one combining both under a single fusion layer — that together implement **Multiple Independent Source Verification (MISV)** for dangerous situations, exactly as required by ISO 21448 SOTIF, and all three are ready to run on the NVIDIA Metropolis stack today.
-Zone 1 — Known Unsafe:   known triggers → hazardous behaviour  │
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Zone 1 — Known Unsafe:   known triggers → hazardous behaviour  │
 │  Zone 2 — Unknown Unsafe: unknown triggers → hazardous          │  ← The hard problem
 │  Zone 3 — Known Safe:     known triggers → safe behaviour       │
 │  Zone 4 — Unknown Safe:   unknown triggers → safe behaviour     │
