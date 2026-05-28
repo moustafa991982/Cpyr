@@ -286,6 +286,11 @@ Both systems share a critical TAO-compatible property: **they train on normal da
 
 ### 5.3 Edge Deployment Profile
 
+1. Edge-deployment engineering. Today the model runs on a T4 with vanilla PyTorch. Porting to Jetson + DeepStream + TensorRT-INT8 is straightforward but real work. We would like NVIDIA's developer-relations support and a few engineering-sample Jetson Orin units to accelerate this.
+2. Site-specific re-training. Every camera viewpoint has its own "normal". The model needs a short calibration period at each new install. TAO Toolkit's fine-tuning workflow looks like the right tool for that; we would value guidance on the right TAO pipeline.
+3. Customer access. We can build this; we cannot easily walk into a transport authority. NVIDIA's existing Metropolis partners (and Inception startup-program enterprise customers) would shorten that path by months.
+4. Validation footage diversity. Our current training data is daylight, dry, urban. Night, rain, tunnel, and snow scenes are out of distribution. Access to NVIDIA's curated AV datasets or to a partner's archival camera footage would dramatically improve generalisation.
+
 | Requirement | CPYR | Traffic Vision |
 |---|---|---|
 | Model size | 1.2 KB (conv) / 51.2 KB (einsum) | ~few MB (3-block conv encoder) |
