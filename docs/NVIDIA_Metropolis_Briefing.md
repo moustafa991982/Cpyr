@@ -309,7 +309,10 @@ Both systems share a critical TAO-compatible property: **they train on normal da
 
 ## 6. SOTIF Compliance Contribution
 
-ISO 21448:2022 requires evidence for three activities: (1) triggering-condition identification i.e. convert unknowns into knowns (Zone 3 → Zone 2), (2) known-unsafe scenario mitigation i.e. convert knowns-unsafe into knowns-safe through mitigation (Zone 2 → Zone 1), (3) residual Zone 2 reduction. 
+ISO 21448:2022 requires evidence for three activities: 
+(1) triggering-condition identification i.e. convert unknowns into knowns (Zone 3 → Zone 2).
+(2) known-unsafe scenario mitigation i.e. convert knowns-unsafe into knowns-safe through mitigation (Zone 2 → Zone 1).
+(3) residual Zone 2 reduction. 
 
 MISV (Multiple independent source of verification) contributes to all three:
 
