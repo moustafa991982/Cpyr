@@ -19,8 +19,12 @@ We have built and demonstrated **three independently operating systems** — one
 │  Zone 3 — Known Safe:     known triggers → safe behaviour       │
 │  Zone 4 — Unknown Safe:   unknown triggers → safe behaviour     │
 └─────────────────────────────────────────────────────────────────┘
-Goal of SOTIF V&V: The entire engineering goal of SOTIF is to shrink Zones 2 and 3 — convert unknowns into knowns (Zone 3 → Zone 2), and convert knowns-unsafe into knowns-safe through mitigation (Zone 2 → Zone 1). 
+Goal of SOTIF V&V: The entire engineering goal of SOTIF is to shrink Zones 2 and 3 — convert unknowns into knowns (Zone 3 → Zone 2),
+and convert knowns-unsafe into knowns-safe through mitigation (Zone 2 → Zone 1). 
+
 ```
+After reviewing the integration of models please visit chapter 6. SOTIF Compliance Contribution
+
 ## 2. Why One Detector Is Not Enough: The SOTIF Argument
 
 ISO 21448:2022 SOTIF defines the hardest safety problem in autonomous driving: a system that is **functioning correctly** yet produces hazardous outcomes because its design assumptions do not cover the operational context. It calls this Zone 2 — *unknown triggering conditions producing hazardous behaviour* — and requires evidence that Zone 2 has been reduced to an acceptable residual level.
