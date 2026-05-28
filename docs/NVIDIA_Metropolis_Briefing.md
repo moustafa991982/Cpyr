@@ -309,24 +309,6 @@ Both systems share a critical TAO-compatible property: **they train on normal da
 
 ## 6. SOTIF Compliance Contribution
 
-ISO 21448:2022 requires evidence for three activities: 
-1. triggering-condition identification i.e. convert unknowns into knowns (Zone 3 → Zone 2).
-2. known-unsafe scenario mitigation i.e. convert knowns-unsafe into knowns-safe through mitigation (Zone 2 → Zone 1).
-3. residual Zone 2 reduction. 
-
-MISV (Multiple independent source of verification) contributes to all three:
-
-1. CPYR watches the vehicle network bus (CAN , V2X) — the stream of internal signals about steering, braking, throttle, etc. It flags anomalies as high-loss Bus events,
-2. Traffic Vision watches the camera — the external visual scene. It flags anomalies as high-MSE video windows ( predictive autoencoder, where a bad future-frame prediction means something unexpected is happening).
-3. MISV is the fusion of the two — "Multi-channel / Multi-modal Independent Safety Verification" or similar. The whole point is that these two channels are independent: they sense different physical manifestations of the same underlying danger, so they fail differently and catch different things. 
-
-| SOTIF Activity | CPYR Contribution | Traffic Vision Contribution | MISV Combined |
-|---|---|---|---|
-| Trigger identification ((Zone 3 Unknown → Zone 2 Known) | Every high-loss CAN event with no accident = new Zone 2 candidate (near miss) | Every high MSE (predictive and Observed) video window with no accident = new Zone 2 candidate (catalogued triggers) | Union of candidates from both channels dramatically expands the SOTIF hazard log |
-| Known-unsafe mitigation | Published F1 > 0.90 on SAE 2021-01-0196 verification test cases | [to be measured] Quarter-second pre-event detection in demo video | Two independent channels covering different physical manifestations (bus vs. camera), they don't share failure modes — fog blinds the camera but not the CAN bus; a sensor-spoofing attack on the bus doesn't fool the camera. Defense in depth.|
-| Zone 2 residual  | Zone 2 ∩ {network-invisible} | Zone 2 ∩ {camera-invisible} | Zone 2 ∩ {network-invisible} ∩ {camera-invisible} — product probability  i.e. only fail to detect when both blind spots overlap|
-
-**Auditable evidence stream**: Both systems produce continuous anomaly scores, not binary decisions. Every frame of every drive produces a logged score from both channels. This is a direct, auditable input to the ISO 21448 clause 9 evaluation of residual risk — a continuous record of how far each observed scene deviated from each system's normal model.
 
 ---
 
