@@ -19,7 +19,7 @@ We have built and demonstrated **three independently operating systems** — one
 │  Zone 3 — Known Safe:     known triggers → safe behaviour       │
 │  Zone 4 — Unknown Safe:   unknown triggers → safe behaviour     │
 └─────────────────────────────────────────────────────────────────┘
-Goal of SOTIF V&V: shrink Zone 2 toward zero
+Goal of SOTIF V&V: The entire engineering goal of SOTIF is to shrink Zones 2 and 3 — convert unknowns into knowns (Zone 3 → Zone 2), and convert knowns-unsafe into knowns-safe through mitigation (Zone 2 → Zone 1). 
 ```
 ## 2. Why One Detector Is Not Enough: The SOTIF Argument
 
