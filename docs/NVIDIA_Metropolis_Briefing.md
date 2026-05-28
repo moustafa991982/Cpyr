@@ -322,6 +322,7 @@ ISO 21448:2022 requires evidence for three activities: (1) triggering-condition 
 | Dimension | Typical Supervised Metropolis App | CPYR + Traffic Vision MISV |
 |---|---|---|
 | Training data | Labeled accidents / near-misses | Normal driving footage + normal network captures only |
+| Privacy | Often cloud-dependent| Pure edge i.e. No raw video uplink required |
 | New hazard class | Requires relabeling + retraining | Detected automatically (unseen normal-violating events) |
 | Failure mode transparency | Black-box score | Per-channel score: which source fired, why (reconstruction delta) |
 | Regulatory framing | Post-hoc classification | Formal SOTIF Zone 2 reduction argument, clause 9 compliant |
