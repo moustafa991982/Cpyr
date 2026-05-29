@@ -11,19 +11,8 @@ We provide independent safety verification for physical AI decisions under SOTIF
 We have built and demonstrated **three independently operating systems** — one listening to the vehicle's internal network or V2X communication, one watching the road through a camera, and one combining both under a single fusion layer — that together implement **Multiple Independent Source Verification (MISV)** for dangerous situations, exactly as required by ISO 21448 SOTIF, and all three are ready to run on the NVIDIA Metropolis stack today.
 
 **The SOTIF hazard zone model:**
-,,,
-┌─────────────────────────────────────────────────────────────────┐
-│  Zone 1 — Known Safe:     known scenarios → safe behaviour      │
-│  Zone 2 — Known Unsafe:   known scenarios → hazardous behaviour │  ← mitigate
-│  Zone 3 — Unknown Unsafe: unknown scenarios → hazardous         │  ← The hard problem
-│  Zone 4 — Unknown Safe:   unknown scenarios → safe behaviour    │
-└─────────────────────────────────────────────────────────────────┘
+<img width="697" height="278" alt="image" src="https://github.com/user-attachments/assets/10084d1a-8e4a-4915-b239-c64cc72cf035" />
 
-Goal of SOTIF V&V: The entire engineering goal of SOTIF is to shrink Zones 2 and 3 —
-convert unknowns into knowns (Zone 3 → Zone 2), and convert knowns-unsafe into
-knowns-safe through mitigation (Zone 2 → Zone 1).
-After reviewing the integration of models please visit chapter 6. SOTIF Compliance Contribution
-,,,
 ## 2. Why One Detector Is Not Enough: The SOTIF Argument
 
 ISO 21448:2022 SOTIF defines the hardest safety problem in autonomous driving: a system that is **functioning correctly** yet produces hazardous outcomes because its design assumptions do not cover the operational context. It calls this Zone 2 — *unknown triggering conditions producing hazardous behaviour* — and requires evidence that Zone 2 has been reduced to an acceptable residual level.
