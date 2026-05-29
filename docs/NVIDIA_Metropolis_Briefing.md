@@ -102,7 +102,9 @@ where:
 
 At inference, only the prediction head drives the alert. The Reconstructor still runs as part of the same forward pass, but its output is discarded. The anomaly score thresholded against the five-band decision rule is purely the prediction MSE.
 
-Figure 4.  Enhanced LKA Predictor: at training time both heads are active and the joint loss back-propagates through the shared History block, forcing it to encode real temporal content; at inference time only the Predictor's output is used to drive the alert. The Reconstructor's role is as a representation regulariser during training — it is not a second runtime detector. The five-threshold decision rule shown on the right is from the paper's "Determining Threshold" section, with separate bounds for ON and OFF transitions to handle the asymmetric loss magnitudes observed empirically.
+<img width="1092" height="710" alt="image" src="https://github.com/user-attachments/assets/a3014b91-fd97-4764-9934-b43b3632b1f3" />
+
+Figure .  Enhanced LKA Predictor: at training time both heads are active and the joint loss back-propagates through the shared History block, forcing it to encode real temporal content; at inference time only the Predictor's output is used to drive the alert. The Reconstructor's role is as a representation regulariser during training — it is not a second runtime detector. The five-threshold decision rule shown on the right is from the paper's "Determining Threshold" section, with separate bounds for ON and OFF transitions to handle the asymmetric loss magnitudes observed empirically.
 7.5 Empirical results from SAE 21AE-0136
 For completeness, the headline numbers from the paper:
 Model
