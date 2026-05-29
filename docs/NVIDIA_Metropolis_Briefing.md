@@ -38,6 +38,8 @@ The published paper (SAE 2021-01-0196) itself concludes:
 > *"Despite the performance boost achieved by the shown ML models, we think ML models are not yet ready to act as a stand-alone tool that provides sufficient safety."*
 
 MISV is the direct answer to that conclusion.
+<img width="1095" height="777" alt="image" src="https://github.com/user-attachments/assets/e41ce1c3-620c-4c87-95d7-ba5dcc052d8e" />
+
 ---
 ISO 21448:2022 requires evidence for three activities: 
 1. triggering-condition identification i.e. convert unknowns into knowns (Zone 3 → Zone 2).
@@ -211,6 +213,7 @@ MISV (A + B + V2X): P(miss) ≤ p_A × p_B × p_C ← three-channel product
 With conservative per-channel Zone 2 miss rates of p_A = 0.12, p_B = 0.20, p_C = 0.05, the MISV system achieves P(miss) ≤ 0.0012 — a 100× improvement over the best single channel, and a **formal, auditable SOTIF Zone 2 residual-risk claim**.
 
 ** Fusion layer**:
+<img width="1086" height="817" alt="image" src="https://github.com/user-attachments/assets/9dfffdfa-417f-4984-bbd3-76324b6ccce5" />
 
 ```
 Score A (CPYR — network)    ─┐
