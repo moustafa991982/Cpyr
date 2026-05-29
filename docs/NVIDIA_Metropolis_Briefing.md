@@ -11,6 +11,7 @@ We provide independent safety verification for physical AI decisions under SOTIF
 We have built and demonstrated **three independently operating systems** — one listening to the vehicle's internal network or V2X communication, one watching the road through a camera, and one combining both under a single fusion layer — that together implement **Multiple Independent Source Verification (MISV)** for dangerous situations, exactly as required by ISO 21448 SOTIF, and all three are ready to run on the NVIDIA Metropolis stack today.
 
 **The SOTIF hazard zone model:**
+
 <img width="697" height="278" alt="image" src="https://github.com/user-attachments/assets/10084d1a-8e4a-4915-b239-c64cc72cf035" />
 
 ## 2. Why One Detector Is Not Enough: The SOTIF Argument
