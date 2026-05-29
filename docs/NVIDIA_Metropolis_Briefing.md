@@ -12,17 +12,16 @@ We have built and demonstrated **three independently operating systems** — one
 
 **The SOTIF hazard zone model:**
 
-```
 ┌─────────────────────────────────────────────────────────────────┐
-│  Zone 1 — Known Unsafe:   known triggers → hazardous behaviour  │
-│  Zone 2 — Unknown Unsafe: unknown triggers → hazardous          │  ← The hard problem
-│  Zone 3 — Known Safe:     known triggers → safe behaviour       │
-│  Zone 4 — Unknown Safe:   unknown triggers → safe behaviour     │
+│  Zone 1 — Known Safe:     known scenarios → safe behaviour      │
+│  Zone 2 — Known Unsafe:   known scenarios → hazardous behaviour │  ← mitigate
+│  Zone 3 — Unknown Unsafe: unknown scenarios → hazardous         │  ← The hard problem
+│  Zone 4 — Unknown Safe:   unknown scenarios → safe behaviour    │
 └─────────────────────────────────────────────────────────────────┘
-Goal of SOTIF V&V: The entire engineering goal of SOTIF is to shrink Zones 2 and 3 — convert unknowns into knowns (Zone 3 → Zone 2),
-and convert knowns-unsafe into knowns-safe through mitigation (Zone 2 → Zone 1). 
 
-```
+Goal of SOTIF V&V: The entire engineering goal of SOTIF is to shrink Zones 2 and 3 —
+convert unknowns into knowns (Zone 3 → Zone 2), and convert knowns-unsafe into
+knowns-safe through mitigation (Zone 2 → Zone 1).
 After reviewing the integration of models please visit chapter 6. SOTIF Compliance Contribution
 
 ## 2. Why One Detector Is Not Enough: The SOTIF Argument
