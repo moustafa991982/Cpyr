@@ -57,6 +57,7 @@ MISV (Multiple independent source of verification) contributes to all three:
 | Zone 2 residual  | Zone 2 ∩ {network-invisible} | Zone 2 ∩ {camera-invisible} | Zone 2 ∩ {network-invisible} ∩ {camera-invisible} — product probability  i.e. only fail to detect when both blind spots overlap|
 
 **Auditable evidence stream**: Both systems produce continuous anomaly scores, not binary decisions. Every frame of every drive produces a logged score from both channels. This is a direct, auditable input to the ISO 21448 clause 9 evaluation of residual risk — a continuous record of how far each observed scene deviated from each system's normal model.
+<img width="1256" height="557" alt="image" src="https://github.com/user-attachments/assets/5e4090dc-b13b-4082-b835-aeb9eff3dfb4" />
 
 
 ## 3. The Three Systems
@@ -97,8 +98,8 @@ During training, both heads are active. The model produces two outputs — a pre
 loss = 0.5 * loss_lka  +  0.5 * loss_hist
  
 where:
-  loss_lka  = MSE( lka_t, lka_predicted )           # prediction head
-  loss_hist = MSE( hist_{t-ws:t}, hist_reconstructed )  # reconstruction head
+ <img width="1258" height="345" alt="image" src="https://github.com/user-attachments/assets/f44d6033-7f99-4276-b8b9-6cf1fc129dee" />
+
 
 At inference, only the prediction head drives the alert. The Reconstructor still runs as part of the same forward pass, but its output is discarded. The anomaly score thresholded against the five-band decision rule is purely the prediction MSE.
 
@@ -107,26 +108,8 @@ At inference, only the prediction head drives the alert. The Reconstructor still
 Figure .  Enhanced LKA Predictor: at training time both heads are active and the joint loss back-propagates through the shared History block, forcing it to encode real temporal content; at inference time only the Predictor's output is used to drive the alert. The Reconstructor's role is as a representation regulariser during training — it is not a second runtime detector. The five-threshold decision rule shown on the right is from the paper's "Determining Threshold" section, with separate bounds for ON and OFF transitions to handle the asymmetric loss magnitudes observed empirically.
 7.5 Empirical results from SAE 21AE-0136
 For completeness, the headline numbers from the paper:
-Model
-Params
-Inference (mb/s)
-Verification F1 (mean across 7 cases)
-Validation F1 (mean across 12 cases)
-Baseline (non-contextual linear)
-2
-139.1
-0.60
-—
-LKA Predictor
-1,054,726
-138.1
-1.00
-0.95
-Enhanced LKA Predictor
-1,054,746
-139.6
-1.00
-0.96
+<img width="1269" height="432" alt="image" src="https://github.com/user-attachments/assets/6bc6a256-862a-449b-833c-489f73ad0ef1" />
+
 
 
 **Results (SAE 2021-01-0196)**:
@@ -134,6 +117,7 @@ Enhanced LKA Predictor
 - 12 validation test cases (sensor distortion families): F1 = 0.88–1.00
 - >90% precision/recall across all test configurations
 - >150% F1 improvement over non-contextual baseline
+<img width="1299" height="285" alt="image" src="https://github.com/user-attachments/assets/d7c4f224-8c7b-4b43-9b77-30bce1d6fac3" />
 
 **Edge footprint**:
 
@@ -167,6 +151,8 @@ This project asks a different question: can we learn a model of "what normal tra
 This is behavioral anomaly detection — the video equivalent of CPYR's contextual anomaly. No bounding boxes, no per-vehicle tracking, no class taxonomy, no labeled accident data required.
 
 **Architecture**: Fully convolutional encoder-decoder (PyTorch)
+
+<img width="1093" height="793" alt="image" src="https://github.com/user-attachments/assets/684ee94b-0ade-4635-8b23-2ef62a992f3b" />
 
 ```
 Input:  (B, 3N, 320, 480)   — N stacked RGB frames (time folded into channels)
@@ -284,6 +270,10 @@ The combined system implements MISV across three independent data channels, each
 ```
 
 **Why this satisfies SOTIF Zone 2 reduction**: The three channels fail independently. CPYR fails when the hazard is not reflected in network signals. Traffic Vision fails when the anomaly is not visible in video (e.g., night, occlusion). V2X fails when communication is unavailable. The probability that all three simultaneously encounter the same unknown triggering condition is the product of their individual Zone 2 exposure rates — a formal, auditable reduction in residual risk.
+
+**Auditability — the continuous evidence stream**
+Both channels in MISV produce continuous anomaly scores, not binary decisions. Every frame of every drive produces a logged score from both channels independent of whether an alert was raised. This is the direct, auditable input that ISO 21448 clause 9 (evaluation of residual risk) calls for — a continuous numerical record of how far each observed scene deviated from each system's learned normal model. A reviewer can replay any time period, re-threshold the same scores under different operating-point assumptions, and reproduce the safety case quantitatively rather than trusting the binary alarm output.
+
 
 **The V2X layer** connects directly to the scenario demonstrated in the SAE paper: the vehicle approaching from behind (which contributed to the collision) is a participant in V2X. Its speed increase as it fills the gap is detectable via V2X before it is visible on camera. V2X provides the earliest possible warning; Traffic Vision confirms it visually; CPYR confirms it at the network/control level.
 
