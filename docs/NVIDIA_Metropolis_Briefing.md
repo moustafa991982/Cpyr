@@ -92,7 +92,40 @@ Where:
 - **history_RLD** = compressed rolling representation of all past RLD frames (convolutional history block)
 - **LKA(t-1)** = previous LKA state from memory unit
 
-The LKA Predictor fires the instant the context-state combination becomes anomalous (LKA transition during hesitation phase). The Enhanced LKA Predictor adds a reconstruction auxiliary loss that forces the history block to genuinely encode temporal content, improving robustness at the cost of slight positive-bias sensitivity. Both are instantaneous. The sustained-confirmation role at the system level is filled by System B (Traffic Vision) in MISV.
+The Enhanced LKA Predictor (the CPYR-side model published in SAE 21AE-0136) is trained with a joint two-loss objective and deployed with a single-headed scoring rule. The asymmetry matters and is the most common point of confusion when explaining the architecture, so it is worth making explicit.
+During training, both heads are active. The model produces two outputs — a predicted next LKA state from the Predictor head, and a reconstructed history sequence from the Reconstructor head — and the loss combines both with fixed equal weights (Algorithm 2 of the paper):
+loss = 0.5 * loss_lka  +  0.5 * loss_hist
+ 
+where:
+  loss_lka  = MSE( lka_t, lka_predicted )           # prediction head
+  loss_hist = MSE( hist_{t-ws:t}, hist_reconstructed )  # reconstruction head
+
+At inference, only the prediction head drives the alert. The Reconstructor still runs as part of the same forward pass, but its output is discarded. The anomaly score thresholded against the five-band decision rule is purely the prediction MSE.
+
+Figure 4.  Enhanced LKA Predictor: at training time both heads are active and the joint loss back-propagates through the shared History block, forcing it to encode real temporal content; at inference time only the Predictor's output is used to drive the alert. The Reconstructor's role is as a representation regulariser during training — it is not a second runtime detector. The five-threshold decision rule shown on the right is from the paper's "Determining Threshold" section, with separate bounds for ON and OFF transitions to handle the asymmetric loss magnitudes observed empirically.
+7.5 Empirical results from SAE 21AE-0136
+For completeness, the headline numbers from the paper:
+Model
+Params
+Inference (mb/s)
+Verification F1 (mean across 7 cases)
+Validation F1 (mean across 12 cases)
+Baseline (non-contextual linear)
+2
+139.1
+0.60
+—
+LKA Predictor
+1,054,726
+138.1
+1.00
+0.95
+Enhanced LKA Predictor
+1,054,746
+139.6
+1.00
+0.96
+
 
 **Results (SAE 2021-01-0196)**:
 - All 7 verification test cases: F1 = 1.00 (LKA Predictor and Enhanced LKA Predictor)
