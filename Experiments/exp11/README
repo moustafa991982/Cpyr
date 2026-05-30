@@ -1,0 +1,21 @@
+# Model
+Model aims to predict the LKA based on the current RLD distance.
+
+## Data
+This experiment on generated data.
+[generated_dataset](generated_dataset)
+
+The jupyter notebook used to generate the dataset is [script](generated_dataset/generate dataset.ipynb)
+
+## Archticture
+Read the [paper](Putting Safety of Intended Functionality SOTIF into Practice.pdf) Proposed Model section.
+
+### Loss
+There are two types of operation for two modelling options:  
+1. Enhancd mode  
+	Mean square Error Loss for:  
+		1. Reconstruction between original right lane distance RLD and the reconstructed tensor.
+		1. Prediction  Loss between predicted and original LKA.    
+2. Non Enhanced model:  
+	Binary Cross Entropy 
+		1. Prediction  Loss between predicted and original LKA.

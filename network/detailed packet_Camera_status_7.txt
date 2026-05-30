@@ -1,0 +1,42 @@
+   0.029779  ==> CANOE timestamp
+   ETH 1 Rx    20e:
+   001681027CFD ==> Source MAC address
+   02F052440022 ==> Destination Mac address
+   0800 ==> Ethernet type
+   4 ==> IPv4
+   5 ==> Internet Header Length (IHL) The minimum value for this field is 5,[22] which indicates a length of 5 × 32 bits = 160 bits = 20 bytes. 
+   00 ==> Differentiated Services Code Point (DSCP) hat require real-time data streamingincase of voip, Explicit Congestion Notification (ECN) allows end-to-end notification of network congestion without dropping packets.
+   0200 ==> 512  defines the entire packet size in bytes, including header and data.
+   3E34 ==> This field is an identification field and is primarily used for uniquely identifying the group of fragments of a single IP datagram
+   4 ==>bit 2: More Fragments (MF)If the DF flag is set, and fragmentation is required to route the packet, then the packet is dropped. This can be used when sending packets to a host that does not have resources to handle fragmentation.
+   000  ==> The fragment offset field is measured in units of eight-byte blocks. It is 13 bits long and specifies the offset of a particular fragment relative to the beginning of the original unfragmented IP datagram. The first fragment has an offset of zero. 
+   FF ==> An eight-bit time to live field helps prevent datagrams from persisting (e.g. going in circles) on an internet. This field limits a datagram's lifetime. It is specified in seconds
+   11 ==> IP protocol number 17 UDP, https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers
+   27A8 ==> Header Checksum
+   
+   0A020003 ==> Source IP 10.2.0.3
+   0A02000A  ==> destination IP 10.2.0.10
+   
+   C35E ==>  Source port 50014  
+   C35F ==>  destination port  50015 
+   01EC ==> Length 492 bytes
+   5DA9 ==> Checksum
+   
+   UDP dataload
+   
+   18 ==> the record version number
+   A1  ==> lower byte contains the size the message header
+   F184 ==>Source Transmit Counter. Incremented on every transmission from the source Application
+   C4740D00 ==>Source Transmit Time. Timestamp (ms) when packed was queued for transmission.
+   
+   16 ==> A constant identifying the sending application [0:63].
+   0000 ==> Reserved for future use. Set to 0.
+   00000000 ==> Stream-specific index used for data retrieval (e.g. Look Index for radar).
+   00CC ==> Stream data payload size (bytes). Size for each stream must be constant.
+   01 ==> Stream Transmit Counter. Increments on each transmission of associated stream number.
+   07 ==>Stream number [0:31]. One source may transmit multiple, asynchronous streams.
+   01 ==> Stream data structure format/version (how to interpret data).
+   3F ==> A Stream may be transmitted from the process layer as M equal-size chunks that can be reconstructed on the receive side. Set to 0 if the transmission is not part of a series of chunks (normal mode). Set to M (>=2) to indicate strea is sent as a series of M chunks.
+   00 ==> Set to 0 when streamChuns is 0; otherwise, represents this chnk’s position in the reconstruction queue [0:(streamChunks-1)].
+   00 ==> Reserved for future use. Set to 0.
+   00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000...
